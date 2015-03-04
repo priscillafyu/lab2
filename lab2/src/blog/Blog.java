@@ -67,7 +67,7 @@ public class Blog {
 	 */
 	public void delete(int index){
 		// Is the index legal?neither too high nor negative
-		if (index >=0 || index < allPosts.size()){
+		if if (index < allPosts.size() && index >=0){){
 		// if it is legal, delete the corresponding post
 			allPosts.remove(index);
 		}
