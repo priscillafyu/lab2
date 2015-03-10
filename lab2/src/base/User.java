@@ -17,4 +17,20 @@ public class User {
 				+ ", userEmail=" + userEmail + "]";
 	}
 	
+	/**
+	 * 1. Return 1 if this user’s ID is greater than u’s ID
+	 * 2. Return -1 if this user’s ID is less than u’s ID
+	 * 3. Return 0 if this user’s ID equals to u’s ID
+	 * @return
+	 */
+	@Override
+	public int compareTo(User u) {
+		// TODO
+		if (userID > u.userID)
+			return 1;
+		else if (userID < u.userID)
+			return -1;
+		else return 0;
+	}
+	
 }
