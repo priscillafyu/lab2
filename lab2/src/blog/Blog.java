@@ -36,6 +36,11 @@ public class Blog {
 		System.out.println(user);
 	}
 	
+	public void setPosts(ArrayList<Post> posts) {
+		// TODO Auto-generated method stub
+		allPosts = posts;
+	}
+	
 	/**
 	 * create a new post in your blog
 	 * @param post
@@ -130,6 +135,30 @@ public class Blog {
 		} else if (!user.equals(other.user))
 			return false;
 		return true;
+	}
+	
+	/**
+	 * Search posts created in month and mention someone
+	 * @param month
+	 * @param someone
+	 */
+	public void search(int month, String someone){
+		
+		Calendar cal = Calendar.getInstance();
+		
+		// search from all posts
+		for (Post p : allPosts){
+			// get the current post's month
+			// ( the Calendar.Month starts with 0, not 1)
+			cal.setTime(p.getDate());
+			int postMonth = cal.get(Calendar.MONTH);
+			
+			// TODO
+			if (postMonth+1 == month){
+				if (p.contains(someone))
+					System.out.println(p.toString());
+			}
+		}
 	}
 
 }
