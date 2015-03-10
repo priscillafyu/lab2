@@ -23,6 +23,14 @@ public class Post {
 	}
 	
 	/**
+	 * get the date
+	 * @return the date of the blog
+	 */
+	public Date getDate(){
+		return date;
+	}
+	
+	/**
 	 * set the content
 	 * @param content
 	 */
@@ -103,11 +111,29 @@ public class Post {
 		else return false;
 	}
 
-	public static void main(String[] args){
+	/*public static void main(String[] args){
 		Date date = new Date();
 		String content = "Hi!";
 		Post a = new Post(date,content);
 		String result = a.toString();
 		System.out.println(result);
+	}*/
+	/**
+	 * 1. Return 1 if this user’s date is greater than p’s date
+	 * 2. Return -1 if this user’s date is less than p’s date
+	 * 3. Return 0 if this user’s date equals to u’p date
+	 * Option 1: (hint) date can be compared using before() and after() methods of Date
+	 * Option 2: (Recommended and much easier) Since Date already implements compareTo(),
+	 * You can directly call it as your return value here
+	 * @return
+	 */
+	@Override
+	public int compareTo(Post p) {
+		// TODO
+		if (date.compareTo(p.date) > 0)
+			return 1;
+		else if (date.compareTo(p.date) < 0)
+			return -1;
+		else return 0;
 	}
 }
