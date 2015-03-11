@@ -6,6 +6,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class Blog {
 	private User user;
@@ -72,7 +73,7 @@ public class Blog {
 	 */
 	public void delete(int index){
 		// Is the index legal?neither too high nor negative
-		if if (index < allPosts.size() && index >=0){){
+		if (index < allPosts.size() && index >=0){
 		// if it is legal, delete the corresponding post
 			allPosts.remove(index);
 		}
