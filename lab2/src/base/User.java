@@ -1,6 +1,6 @@
 package base;
 
-public class User {
+public class User implements Comparable<User>{
 	int userID;
 	String userName;
 	String userEmail;
