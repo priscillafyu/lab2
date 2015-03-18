@@ -3,12 +3,20 @@ package blog;
 import base.*;
 
 import java.io.BufferedReader;
+import java.io.EOFException;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-public class Blog {
+public class Blog implements Serializable{
 	private User user;
 	private ArrayList<Post> allPosts;
 	
@@ -29,17 +37,17 @@ public class Blog {
 		this.user = user;
 	}
 	
+	public void setPosts(ArrayList<Post> posts) {
+		// TODO Auto-generated method stub
+		allPosts = posts;
+	}
+	
 	/**
 	 * 
 	 * @return user
 	 */
 	public void getUser(){
 		System.out.println(user);
-	}
-	
-	public void setPosts(ArrayList<Post> posts) {
-		// TODO Auto-generated method stub
-		allPosts = posts;
 	}
 	
 	/**
@@ -63,7 +71,7 @@ public class Blog {
 	public void list(){
 		System.out.println("Current posts:");
 		for (int i = 0; i < allPosts.size(); i++){
-			System.out.println("["+i+"]"+allPosts.get(i));
+			System.out.println("Post["+i+"]"+allPosts.get(i));
 		}
 	}
 	
@@ -73,7 +81,7 @@ public class Blog {
 	 */
 	public void delete(int index){
 		// Is the index legal?neither too high nor negative
-		if (index < allPosts.size() && index >=0){
+		if (index >=0 || index < allPosts.size()){
 		// if it is legal, delete the corresponding post
 			allPosts.remove(index);
 		}
@@ -161,5 +169,65 @@ public class Blog {
 			}
 		}
 	}
+	
+	/**
+	 * Write the Blog object to the external file
+	 * @param someone
+	 */
+	public void save(String filepath){
+		// TODO
+
+		FileOutputStream fs = null;
+		try {
+			fs = new FileOutputStream(filepath);
+		} catch (IOException e){
+			System.out.println("Wait! There is something wrong. I cannot find the file...");
+		}
+		try {
+			ObjectOutputStream os = new ObjectOutputStream(fs);
+			//os.writeObject(this);
+			for (int i = 0; i < allPosts.size(); i++){
+				os.writeObject(allPosts.get(i));
+			}
+			os.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * Read the Blog object from file
+	 * @param someone
+	 */
+	public void load(String filepath){
+		// TODO
+		try {
+			FileInputStream fis = new FileInputStream(filepath);
+			ObjectInputStream is = new ObjectInputStream(fis);
+			Object o;
+			ArrayList<Post> p = new ArrayList<Post>();
+			try {
+				while ((o = is.readObject()) != null){
+					p.add((Post)o);
+				}
+			}
+			catch (EOFException exc)
+			{
+				is.close();
+			}
+			setPosts(p);
+			is.close();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			//e.printStackTrace();
+			System.out.println("Wait! There is something wrong. I cannot find the file.");
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		} catch (ClassNotFoundException e2) {
+			e2.printStackTrace();
+		}
+	}
+		
 
 }
